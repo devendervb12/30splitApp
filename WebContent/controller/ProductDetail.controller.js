@@ -59,5 +59,71 @@ sap.ui.controller("smax.batch30.A3.controller.ProductDetail", {
 		});
 		odialog.setModel(this.getOwnerComponent().getModel());
 		odialog.open();
+	},
+	onUpdate : function(){
+		// update name of the product
+		// prodID, name
+		var prodID = this.getView().byId("idprodID").getText();
+		var productName = this.getView().byId("idprodName").getText();
+		
+		var odialog = new sap.m.Dialog({
+			title : "Update Product Name",
+			content : [
+				new sap.m.Label({ text : "Product ID"}),
+				new sap.m.Input({value : prodID, editable : false}),
+				new sap.m.Label({ text : "Name"}),
+				new sap.m.Input({value : productName})
+			],
+			buttons : [
+				new sap.m.Button({ text : "Update and Close", press : function(oEvent){
+					//Update
+					var oModel = oEvent.getSource().getParent().getModel();
+					
+					var data = {
+							Name : oEvent.getSource().getParent().getContent()[3].getValue() 
+					}
+					
+					oModel.update("/ProductSet('"+prodID+"')", data, {
+						success : function(){
+							sap.m.MessageToast.show("Data Updated");
+						},
+						error : function(){
+							sap.m.MessageToast.show("Data Not Updated");
+						}
+					})
+					
+					
+					//close
+					oEvent.getSource().getParent().close();
+				}}),
+				
+				new sap.m.Button({ text : "Close", press : function(oEvent){
+					oEvent.getSource().getParent().close();
+				}})
+			]
+		});
+		
+		odialog.setModel(this.getOwnerComponent().getModel());
+		odialog.open();
+		
+		
+	},
+	onDelete : function(){
+		
+		var oModel = this.getOwnerComponent().getModel();
+		var prodID = this.getView().byId("idprodID").getText();
+		
+		oModel.remove("/ProductSet('"+prodID+"')", {
+			success : function(){},
+			error : function(){}
+		})
 	}
 });
+
+
+
+
+
+
+
+

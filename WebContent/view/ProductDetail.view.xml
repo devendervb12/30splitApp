@@ -4,8 +4,8 @@
 	<Page title="Product Detail">
 		<content>
 		 <VBox>
-            <Text text="{ProductID}"/>	
-            <Text text="{Name}"/>	
+            <Text text="{ProductID}" id="idprodID"/>	
+            <Text text="{Name}" id="idprodName"/>	
             <Text text="{Category}"/>	
             <Text text="{Description}"/>	
          </VBox>   
@@ -14,6 +14,7 @@
 		  <Bar>
 		    <contentRight>
 		        <Button text="Create" press="onCreate"/>
+		        <Button text="Update" press="onUpdate"/>
 		    </contentRight>
 		  </Bar>
 		</footer>
